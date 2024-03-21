@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +23,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::post('/search', [SearchController::class, 'search']);
+    Route::resource('artist', ArtistController::class);
+    Route::resource('album', AlbumController::class);
+    Route::get('/album/{album}', [AlbumController::class, 'show']);
+});
 
 Route::get('/auth/redirect', function () {
     return Socialite::driver('google')->redirect();
