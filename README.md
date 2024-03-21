@@ -5,4 +5,7 @@
 - update your database credentials
 - run `composer install`
 - run `php artisan key:generate`
+- run./vendor/bin/sail up
+
+
 
