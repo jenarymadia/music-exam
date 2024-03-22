@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FavoriteAlbum;
 use Illuminate\Http\Request;
 use App\Services\LastFM\AlbumServices;
+use Illuminate\Support\Facades\Auth;
 use Termwind\Components\Raw;
 
 class AlbumController extends Controller
@@ -29,20 +31,32 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Create a new FavoriteArtist instance
+        $favoriteArtist = new FavoriteAlbum();
+        $favoriteArtist->user_id = Auth::id();
+        $favoriteArtist->name = $request->name;
+        $favoriteArtist->artist = $request->artist;
+        $favoriteArtist->save();
+    
+        // Optionally, you can return a response indicating success
+        return response()->json([
+            'message' => 'Favorite album saved successfully',
+            'id' => $favoriteArtist->id
+        ], 200);
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Request $request, string $album)
-    {
+    {   
         $artist = $request->query('artist');
-        $album = (new AlbumServices)->getInfo($album, $artist);
-        if (! $album) {
+        $album = new AlbumServices($album);
+        $info = $album->getInfo($artist);
+        if (! $info) {
             abort(404);
         }
-        return view('albums.index', compact('album'));
+        return view('albums.index', compact('info'));
     }
 
     /**
