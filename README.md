@@ -5,7 +5,9 @@
 - update your database credentials
 - run `composer install`
 - run `php artisan key:generate`
-- run./vendor/bin/sail up
+- run php artisan migrate
+- run ./vendor/bin/sail up
+- run npm run dev in your terminal and refresh the page
 
 
 
