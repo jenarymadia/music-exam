@@ -2,7 +2,9 @@
 
 @section('content')
     <artist-view 
-        :artist="{{ json_encode($artist) }}" 
+        :info="{{ json_encode($info) }}" 
+        :tracks="{{ json_encode($tracks) }}" 
+        :albums="{{ json_encode($albums) }}" 
         :favorite="{{ $favorite }}" 
     ></artist-view>
 @endsection

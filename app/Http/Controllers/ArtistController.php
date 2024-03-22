@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ArtistController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      */
@@ -49,13 +50,17 @@ class ArtistController extends Controller
 
     public function show(string $artist)
     {
-        $artist = (new ArtistServices)->getInfo($artist);
-        if (! $artist) {
+        $artist = new ArtistServices($artist);
+        if (! $artist->getInfo()) {
             abort(404);
         }
 
-        $favorite = FavoriteArtist::userFave($artist['name']);
-        return view('artists.index', compact('artist','favorite'));
+        $info = $artist->getInfo();
+        $albums = $artist->getTopAlbums();
+        $tracks = $artist->getTopTracks();
+
+        $favorite = FavoriteArtist::userFave($info['name']);
+        return view('artists.index', compact('info','albums','tracks','favorite'));
     }
 
     /**
