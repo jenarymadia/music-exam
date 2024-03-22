@@ -6,11 +6,13 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <search-bar-component></search-bar-component>
                 </div>
 
                 <div class="card-body">
-                    <search-results></search-results>
+                    <search-results
+                        :favoriteartists = "{{ json_encode($favoriteArtists) }}"
+                        :favoritealbums ="{{ json_encode($favoriteAlbums) }}"
+                    ></search-results>
                 </div>
             </div>
         </div>

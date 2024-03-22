@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function favoriteArtists()
+    {
+        return $this->hasMany(FavoriteArtist::class);
+    }
+
+    public function favoriteAlbums()
+    {
+        return $this->hasMany(FavoriteArtist::class);
+    }
 }

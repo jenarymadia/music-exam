@@ -8,12 +8,14 @@ use App\Services\LastFM\ArtistServices;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
-{
+{   
     public function search(Request $request) {
+        $artist = new ArtistServices($request->value);
+        $album = new AlbumServices($request->value);
         return [
             'results' => [
-                'artists' => (new ArtistServices())->search($request->value),
-                'albums' => (new AlbumServices())->search($request->value)
+                'artists' => $artist->search(),
+                'albums' => $album->search()
             ]
         ];
     }
