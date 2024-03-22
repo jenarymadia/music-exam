@@ -11,28 +11,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1>{{ info.name }}</h1>
-                <img :src="info.image.extralarge" :alt="info.name" class="img-fluid rounded mb-3">
-                
-                <h2>Biography:</h2>
-                <p v-html="info.bio.content"></p>
-                <h2>Similar Artists:</h2>
-
+                <img :src="info.image.large" :alt="info.name" class="img-fluid rounded mb-3">
+                <p>Artist : {{ info.artist }}</p>
+                <p v-if="info.releasedate">Released date : {{ info.releasedate }}</p>
+                <h2>Tracks:</h2>
                 <ul class="list">
-                    <li v-for="similar in info.similar" :key="similar.name" class="list-item">
-                        <a :href="similar.url">{{ similar.name }}</a>
-                    </li>
-                </ul>
-
-                <h2>Top Albums:</h2>
-                <ul class="list">
-                    <li v-for="album in albums" :key="album.name" class="list-item">
-                        <a :href="album.url" target="_blank">{{ album.name }}</a>
-                    </li>
-                </ul>
-
-                <h2>Top Tracks:</h2>
-                <ul class="list">
-                    <li v-for="track in tracks" :key="track.name" class="list-item">
+                    <li v-for="track in info.tracks" :key="track.name" class="list-item">
                         <a :href="track.url" target="_blank">{{ track.name }}</a>
                     </li>
                 </ul>
@@ -46,14 +30,6 @@
     export default {
         props: {
             info: {
-                type: Object,
-                required: true
-            },
-            tracks: {
-                type: Object,
-                required: true
-            },
-            albums: {
                 type: Object,
                 required: true
             },
@@ -76,7 +52,7 @@
         methods: {
             addToFavorites() {
                 // Example endpoint for adding to favorites
-                const endpoint = '/artist';
+                const endpoint = '/album';
 
                 // Send a POST request using Axios
                 axios.post(endpoint, this.info)
@@ -97,7 +73,7 @@
             },
 
             removeFromFavorites() {
-                const endpoint = `/artist/${this.id}`; // Assuming you have the favorite's ID
+                const endpoint = `/album/${this.id}`; // Assuming you have the favorite's ID
                 // Send a DELETE request using Axios
                 axios.delete(endpoint)
                 .then(response => {

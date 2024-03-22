@@ -19,27 +19,16 @@ export default {
     ...mapActions(['storeResults']), // Map the storeResults action from Vuex
     async search(column) {
       try {
-
-        const response = await axios.post('https://localhost/search', {
+        const response = await axios.post('/search', {
           searchBy: column,
           value: this.query
         });
         console.log(response.data.results);
         this.storeResults(response.data.results);
-
       } catch (error) {
         console.error('Error fetching albums:', error);
       }
     },
-    buildLink(result,column) {
-      if(column == 'artist') {
-        let value = result.mbid ? result.mbid : result.name;
-        return `/${column}/${value}`
-      }else {
-        let value = result.mbid !="" ? result.mbid : result.artist;
-        return `/${column}/${result.name}?artist=${value}`
-      }
-    }
   },
   mounted() {
     console.log('Component mounted.');

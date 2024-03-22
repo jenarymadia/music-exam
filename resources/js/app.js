@@ -19,6 +19,7 @@ import ExampleComponent from './components/ExampleComponent.vue';
 import SearchBarComponent from './components/search/SearchBarComponent.vue';
 import ResultsComponent from './components/search/ResultsComponent.vue';
 import ArtistViewComponent from './components/artist/viewComponent.vue';
+import AlbumViewComponent from './components/album/viewComponent.vue';
 import searchResult from './search-result.js'; // Import your Vuex store
 
 app.use(searchResult);
@@ -26,6 +27,7 @@ app.component('example-component', ExampleComponent);
 app.component('search-bar-component', SearchBarComponent);
 app.component('search-results', ResultsComponent);
 app.component('artist-view', ArtistViewComponent);
+app.component('album-view', AlbumViewComponent);
 
 /**
  * The following block of code may be used to automatically register your
